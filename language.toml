@@ -5,11 +5,8 @@ args = [
   "${$NODE_MODULES_GLOBAL}",
   "--tsProbeLocations",
   "${$NODE_MODULES_GLOBAL}",
-  "--stdio" # no trailing comma
+  "--stdio"
 ]
-
-# remove this from the top-level; define file-types inside a [[language]] block instead
-# file-types = ["ts", "typescript", "html"]
 
 [language-server.rust-analyzer.config.cargo]
 features = "all"
@@ -20,34 +17,61 @@ command = "clippy"
 [[language]]
 name = "toml"
 roots = ["."]
-language-servers = ["taplo","harper-ls"]
+language-servers = ["taplo", "harper-ls"]
 
 [language-server.gopls]
 command = "gopls"
-config = {
-  gofumpt = true,
-  local = "goimports",
-  semanticTokens = true,
-  staticcheck = true,
-  verboseOutput = true,
-  analyses = { fieldalignment = true, nilness = true, unusedparams = true, unusedwrite = true, useany = true },
-  usePlaceholders = true,
-  completeUnimported = true,
-  hints = {
-    assignVariableType = true,
-    compositeLiteralFields = true,
-    compositeLiteralTypes = true,
-    constantValues = true,
-    functionTypeParameters = true,
-    parameterNames = true,
-    rangeVariableTypes = true
-  }
-}
+config = { gofumpt = true, local = "goimports", semanticTokens = true, staticcheck = true, verboseOutput = true, analyses = { fieldalignment = true, nilness = true, unusedparams = true, unusedwrite = true, useany = true }, usePlaceholders = true, completeUnimported = true, hints = { assignVariableType = true, compositeLiteralFields = true, compositeLiteralTypes = true, constantValues = true, functionTypeParameters = true, parameterNames = true, rangeVariableTypes = true } }
 
 [[language]]
 name = "go"
 roots = ["go.work", "go.mod"]
 auto-format = true
 comment-token = "//"
-language-servers = ["gopls","harper-ls"]
-formatter = { command = "gofmt" } # or { command = "gofumpt" }
+language-servers = ["gopls", "harper-ls"]
+formatter = { command = "gofmt" }
+
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-css-language-server]
+command = "vscode-css-language-server"
+args = ["--stdio"]
+
+[[language]]
+name = "javascript"
+file-types = ["js", "jsx", "ts", "tsx", "mjs", "cjs"]
+auto-format = true
+language-servers = ["typescript-language-server", "harper-ls"]
+formatter = { command = "prettier", args = ["--parser", "babel"] }
+
+[[language]]
+name = "html"
+file-types = ["html"]
+auto-format = true
+language-servers = ["vscode-html-language-server", "harper-ls"]
+formatter = { command = "prettier", args = ["--parser", "html"] }
+
+[[language]]
+name = "angular"
+file-types = ["component.html", "component.ts"]
+auto-format = true
+language-servers = ["angular-ls", "harper-ls"]
+
+[[language]]
+name = "css"
+file-types = ["css", "scss", "less"]
+auto-format = true
+language-servers = ["vscode-css-language-server", "harper-ls"]
+formatter = { command = "prettier", args = ["--parser", "css"] }
+
+[[language]]
+name = "elixir"
+file-types = ["ex", "exs", "heex"]
+language-servers = ["elixir-ls"]
+

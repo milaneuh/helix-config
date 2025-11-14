@@ -2,6 +2,7 @@ theme = "catppuccin_mocha"
 
 [editor]
 line-number = "relative"
+auto-format = true
 mouse = true
 rulers = [120]
 true-color = true
