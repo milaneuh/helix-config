@@ -1,4 +1,13 @@
+#############################################
+# Theme
+#############################################
+
 theme = "catppuccin_mocha"
+
+
+#############################################
+# Editor Settings
+#############################################
 
 [editor]
 line-number = "relative"
@@ -31,7 +40,7 @@ select = "underline"
 enable = false
 
 [editor.auto-save]
-focus-lost  = true
+focus-lost = true
 after-delay.enable = true
 after-delay.timeout = 300000
 
@@ -45,7 +54,6 @@ left = [
   "file-name",
   "read-only-indicator",
   "file-modification-indicator",
-
 ]
 center = []
 right = [
@@ -62,29 +70,60 @@ right = [
 ]
 separator = "│"
 
+
+#############################################
+# Keybindings — Global
+#############################################
+
 [keys.normal]
 C-j = "half_page_down"
 C-k = "half_page_up"
 
 [keys.normal.space]
-b = { w = ":write", d = ":bc", o = ":bco", l = ":toggle lsp.display-inlay-hints" }
 q = ":quit"
+
+
+#############################################
+# <space> b — Buffers & Windows
+#############################################
+
+[keys.normal.space.b]
+w = [":format", ":write"]
+f = ":format"
+d = ":bc"
+D = ":bc!"
+o = ":bco"
+O = ":bco!"
 B = "buffer_picker"
 
-[keys.normal."+"]
-f = ":format"
-w = ":toggle whitespace.render all"
-W = ":set whitespace.render none"
-s = ":toggle soft-wrap.enable"
+
+#############################################
+# <space> f — Files
+#############################################
 
 [keys.normal.space.f]
 f = "file_picker_in_current_directory"
 F = "file_picker"
 b = "file_picker_in_current_buffer_directory"
 "." = ":toggle-option file-picker.git-ignore"
+
+
+#############################################
+# <space> g — Git / Search
+#############################################
+
+[keys.normal.space.g]
 g = "global_search"
-e = "file_explorer"
-r = ":reload-all"
-x = ":reset-diff-change"
-w = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
+b = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
 d = [":vsplit-new", ":lang diff", ":insert-output git diff"]
+
+
+#############################################
+# <space> t — Toggles
+#############################################
+
+[keys.normal.space.t]
+w = ":toggle whitespace.render all"
+W = ":set whitespace.render none"
+s = ":toggle soft-wrap.enable"
+l = ":toggle lsp.display-inlay-hints"
